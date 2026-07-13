@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "traceable-ai-scientist"
+version = "0.1.0"
+description = "A traceable, single-input AI Scientist workflow for hypothesis generation, experiments, and paper review."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "openai>=1.75.0",
+  "pydantic>=2.11.0",
+  "python-dotenv>=1.1.0",
+  "reportlab>=4.2.0",
+  "pypdf>=5.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+]
+
+[project.scripts]
+ai-scientist = "ai_scientist.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ai_scientist"]
+
+[tool.hatch.build]
+include = [
+  "src/ai_scientist/**/*.py",
+  "src/ai_scientist/prompt_text/*.md",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
